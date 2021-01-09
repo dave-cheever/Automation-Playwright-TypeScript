@@ -113,7 +113,7 @@ When("Click Lunch til 3pm button and table number {string}", async function (thi
   // Fill input[name="tableNumber"]
   await this.page.fill('input[name="tableNumber"]', text);
  //  eval("actualTableNumber = '"+text+"';");
-  actualTableNumber = Number(text);
+ globalThis.actualTableNumber = Number(text);
   // Click text="Confirm"
   await this.page.waitForSelector('text="Confirm"',{timeout: 5000});
   await this.page.click('text="Confirm"');
@@ -146,7 +146,6 @@ When("I click the Cart", async function(this: OurWorld){
   // get the value per Div Item
   //Per intance of div validate
   this.page.waitForTimeout(10000);
-
   // Delete strings that isn't included in validation
   var ItemValues = await this.page.textContent('xpath=//*[@id="__next"]/div[1]/div[4]/div/div/div[2]');
   var Itemvalues = "test";
@@ -161,9 +160,6 @@ When("I click the Cart", async function(this: OurWorld){
     splitted[m]= splitted1[m+1];
   }
   var totalprice:number = 0;
-  var item ="";
-
-  
   let products:string[] = [];
   for(var i = 0; i < num;i++)
   {
@@ -190,10 +186,6 @@ When("I click the Cart", async function(this: OurWorld){
       
     }
   }
-  // products.push("$"+totalprice+".00");
-  
-  
-
   console.log(products.sort());
   console.log(orderedItems.sort());
   //validate items
@@ -201,13 +193,12 @@ When("I click the Cart", async function(this: OurWorld){
   assert.notStrictEqual(products.sort(),orderedItems.sort(),"Items not equal");
 
   //$
-  // var actualTotalPrice = currency(totalprice);
-  // var expectedTotalPrice = currency(price); 
-  // assert.strictEqual(expectedTotalPrice,actualTotalPrice,"Price not equal");
+  var actualTotalPrice = currency(totalprice);
+  var expectedTotalPrice = currency(price); 
   await this.page.screenshot({ path:'..testData/screenshot'+Date.now()+'.png' });
+  assert.strictEqual(expectedTotalPrice,actualTotalPrice,"Price not equal");
 
   //table number
-  // var expextedTableNumber ="test";
   var value = await this.page.textContent('xpath=//*[@id="__next"]/div[1]/div[4]/div/div/div[1]/button/div/div/div/p');
   var expextedTableNumbers;
   try   
@@ -223,8 +214,6 @@ When("I click the Cart", async function(this: OurWorld){
     console.log(Error);
   }
   assert.strictEqual(Number(expextedTableNumbers),globalThis.actualTableNumber);
-  
-
 });
 
 
