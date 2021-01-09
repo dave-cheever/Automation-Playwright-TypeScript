@@ -5,13 +5,13 @@
 - Discounts not included cause i don't have the code for discount
 
 -run in terminal-
-npm init -y
-npm i playwright @cucumber/cucumber typescript ts-node @types/node -D
-npx -p typescript tsc --init
+-npm init -y
+-npm i playwright @cucumber/cucumber typescript ts-node @types/node -D
+-npx -p typescript tsc --init
 
 -Update node modules-
-goto node_modules>@types>node>TS globals.d.ts
-	Then add this line of code "browser: typeof Browser;" under the "interface Global" line 468
+-goto node_modules>@types>node>TS globals.d.ts
+	-Then add this line of code "browser: typeof Browser;" under the "interface Global" line 468
 
-npm run test
+-npm run test
 
